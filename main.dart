@@ -432,3 +432,482 @@
 // void startGame() {
 //   print('3.game completed');
 // }
+
+
+///노마드코더
+////////////////////////////////////////////////DATA TYPES///////////////////////////////////////////////
+// 2.3강 #####Collection for
+// void main(){
+//   var oldFriends = ['nico', 'lynn'];
+//   var newFriends = [
+//     'lewis',
+//     'ralph',
+//     'daren',
+//     for(var friend in oldFriends) '💕 $friend',
+//   ];
+//   print(newFriends);
+// }
+
+//2.4강 ####Map
+// void main(){
+//   var player = {
+//     'name': 'nico',
+//     'xp': 19.99,
+//     'superpower': false,
+//   };
+// }
+// void main(){
+//   Map<int, bool> player = {
+//     1:true,
+//     2:false,
+//     3:true,
+//   };
+//   print(player);
+// }
+// void main(){
+//   List<Map<String,Object>> players = [
+//     {
+//       'name':'nico',
+//       'xp':19993.999,
+//     },
+//     {
+//       'name':'nico',
+//       'xp':19993.999,
+//     }
+//   ]; 
+// }
+
+//2.5강 ####Sets
+// void main(){
+//   Set<int> numbers = {1,2,3,4,}; //set에 포함된 값들은 고유 하다.
+//   numbers.add(1);
+//   numbers.add(1);
+//   numbers.add(1);
+//   numbers.add(1);
+//   print(numbers);
+// }
+
+////////////////////////////////////////////////FUNCTIONS///////////////////////////////////////////////
+///3.0강 Defining a Function
+// String sayHello(String potato){
+//   return "Hello $potato nice to meet you"; 
+//   // return을 삭제 해서 작성해 줄수도 있다.
+//   // "Hello $potato nice to meet you"; 
+// }
+//람다식을 이용한 단축 syntax
+// String sayHello (String potato) => 'Hello $potato nice to meet you';
+
+// void main(){
+//   print(sayHello("손준석"));
+// }
+
+
+///3.1강 named Parameters
+
+//원래는 아래와 같은 방식을 쓰지만 순서가 햇갈린다.
+// String sayHello(String name, int age, String country){
+//   return "Hello $name, you are $age, and you come from $country";
+// }
+// void main(){
+//   print(sayHello('sonny', 39, '대한민국'));
+// }
+//그래서 첫번째로 아래와 같은 방식(named Parameters)을 쓴다.
+// String sayHello({
+//   String name = 'anon', 
+//   int age = 99, 
+//   String country="wakanda"
+//   }){//파라미터를 중괄호로 묶어준다. 그리고 유저가 파라미터를 한개만 작성해주면 null safety에 걸리기 때문에 default value를 미리 지정해준다.
+//   return "Hello $name, you are $age, and you come from $country";
+// }
+// void main(){
+//   print(sayHello(
+//     age : 39,
+//     name: "손준석",
+//     country: "대한민국",
+//   ));
+// }
+//두번째로 꼭 유저에게 값을 받아야 하는 상황이라면 default value를 사용하는것을 불가하다.
+// String sayHello({
+//   required String name, 
+//   required int age, 
+//   required String country
+//   }){//파라미터를 중괄호로 묶어준다. 그리고 유저가 파라미터를 한개만 작성해주면 null safety에 걸리기 때문에 default value를 미리 지정해준다.
+//   return "Hello $name, you are $age, and you come from $country";
+// }
+// void main(){
+//   print(sayHello(
+//     age : 39,
+//     name: "손준석",
+//     country: "대한민국",
+//   ));
+// }
+
+///3.3 Optional Positional Parameters
+///잘 사용하지는 않음
+// String SayHello(
+//   String name, 
+//   int age, 
+//   [String? country='cuba']
+//   )=>
+// 'Hello $name, you are $age years old from $country';
+// void main(){
+//   var results = SayHello('nico',12);
+//   print(results);
+// }
+
+
+///3.4 QQ Operator (중요: 자주사용)
+
+// String capitalizeName(String? name) => name.toUpperCase(); ///null 일지도 모르는 값을 toUpperCase를 사용할수 없기 때문에 에러
+// void main(){
+//   capitalizeName('nico');
+//   capitalizeName(null);
+// }
+
+///이렇게 하는것도 나쁘지 않음
+// String capitalizeName(String? name){
+//   if(name !=null){
+//     return name.toUpperCase();
+//   }
+//   return 'ANON';
+// }
+// void main(){
+//   capitalizeName('nico');
+//   capitalizeName(null);
+// }
+
+///조금더 짧게 처리
+// String capitalizeName(String? name)=>name !=null ? name.toUpperCase() : 'ANON';
+
+///조금더더 짧게 처리
+// String capitalizeName(String? name)=>name?.toUpperCase() ?? 'ANON';
+// 좌항 ?? 우항 = 좌항이 null이 아니면 좌항 값 리턴 null이면 우항 값 리턴
+// void main(){
+//   String? name;
+//   name ??= 'nico';
+//   name = null;
+//   name ??= 'another';
+//   print(name);
+// }
+
+///3.5강 Typedef
+// typedef ListOfInts = List<int>; ///결국 List<int> 타입이지만 다른 이름을 붙일수가 있음.
+// ListOfInts reverseListOfNumbers(List<int> list){
+//   var reversed = list.reversed;
+//   return reversed.toList();
+// }
+// void main(){
+//   print(reverseListOfNumbers([1,2,3]));
+// }
+
+///typedef를 사용해서 Map을 이렇게도 만들어 사용할 수 있지만 구조화된 데이터 사용을 위해서 
+///class 를 만들어서 사용하는 것이 훨씬낫다
+// typedef UserInfo = Map<String, String>;
+// String sayHi(UserInfo userInfo){
+//   return "Hi ${userInfo['name']}";
+// }
+// void main(){
+//   sayHi({'anme': 'nico'});
+// }
+
+////////////////////////////////////////////////CLASSES///////////////////////////////////////////////
+
+///4.0강 Your First Dart Class
+
+// class Player {
+//   final String name ='nico';
+//   int xp = 1300;
+// }
+// void main(){
+//   var player = Player(); //굳이 인스턴스를 만들때 new 를 붙일 필요는 없다.
+//   print(player.name);
+//   player.name = "손준석";// final 붙일 경우 변경할 수 없기 때문에 에러가 발생한다.
+//   print(player.name);
+// }
+
+
+// class Player {
+//   final String name ='nico';
+//   int xp = 1300;
+//   void sayHello(){
+//     // print("Hi my name is $this.name"); // 다트에서는 굳이 this를 사용할 필요가 없다.
+//     print("Hi my name is $name");
+//   }
+// }
+// void main(){
+//   var player = Player(); //굳이 인스턴스를 만들때 new 를 붙일 필요는 없다.
+//   player.sayHello();
+// }
+
+///4.1강 Constructors(생성자)
+
+// class Player {
+//   late final String name;
+//   late int xp;
+
+//   Player(String name, int xp){
+//     this.name = name;
+//     this.xp = xp;
+//   }
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+// void main(){
+//   var player = Player("손준석",2000);
+//   player.sayHello();
+//   var player2 = Player("lynn",2500);
+//   player2.sayHello();
+// }
+///위의 방식은 너무 복잡하다 좀더 간결하게 만들자
+
+// class Player {
+//   final String name;
+//   int xp;
+
+//   ///생성자
+//   Player(this.name, this.xp);///이렇게만 하면 생성자 사용이 간결해진다.
+
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+// void main(){
+//   var player = Player("손준석",2000);
+//   player.sayHello();
+//   var player2 = Player("lynn",2500);
+//   player2.sayHello();
+// }
+
+///4.2강 Named Contructor Parameters
+// 멤버변수가 많아 질수록 생정사 순서가 햇갈리고 알아볼수가 없게된다.
+
+// class Player {
+//   final String name;
+//   int xp;
+//   String team;
+//   int age;
+
+//   ///생성자
+//   Player({ 
+//     required this.name,
+//     required this.xp,
+//     required this.team,
+//     required this.age
+//     });
+
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+// void main(){
+//   var player = Player(
+//     name: 'nico',
+//     xp: 2400,
+//     team: 'black',
+//     age: 33
+//   );
+//   player.sayHello();
+//   var player2 = Player(
+//     name: 'lynn',
+//     age: 30,
+//     team: 'red',
+//     xp: 3000
+//   );
+//   player2.sayHello();
+// }
+
+///4.3강 Named Contructors
+//생성자를 여러개 생성하고 싶을때
+// class Player {
+//   final String name;
+//   int xp, age;
+//   String team;
+
+//   ///생성자
+//   Player({ 
+//     required this.name,
+//     required this.xp,
+//     required this.team,
+//     required this.age
+//     });
+
+//   //Dart 만의 특별한 콜론 생성자 초기화 방식   
+//   Player.createBluePlayer({required String name,required int age}) :
+//   this.age = age,
+//   this.name = name,
+//   this.team = 'blue',
+//   this.xp = 0;
+
+//   Player.createRedPlayer(String name,int age) 
+//       :this.age = age,
+//        this.name = name,
+//        this.team = 'Red',
+//        this.xp = 0;
+  
+
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+// void main(){
+//   var player = Player.createBluePlayer(
+//     name: 'nico',
+//     age: 2400,
+//   );
+//   var redPlayer = Player.createRedPlayer("nico", 21);
+// }
+
+///4.5강 Cascade Notation
+
+// class Player {
+//   String name;
+//   int xp;
+//   String team;
+
+//   Player({required this.name, required this.xp, required this.team});
+
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+///아래처럼 매번 파라미터를 수정하는 라인을 작성해주는게 일반적이지만 쉽게 할수 있다.
+// void main(){
+//   var nico = Player(name: 'nico', xp: 1200, team: 'Red');
+//   nico.name = 'las';
+//   nico.xp = 1200000;
+//   nico.team = 'blue';
+// }
+// ///아래처럼 축약해서 작성할 수 있다.
+// void main(){
+//   var nico = Player(name: 'nico', xp: 1200, team: 'Red')
+//   ..name = 'las'
+//   ..xp = 1200000
+//   ..team = 'blue';
+// }
+
+///4.6강 Enums
+//개발자들이 오타를 적는것을 방지해주는 역할
+
+// enum Team {red,blue}
+// enum XPLevel{beginner, medium, pro}
+
+// class Player {
+//   String name;
+//   XPLevel xp;
+//   Team team;
+
+//   Player({required this.name, required this.xp, required this.team});
+
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+// //아래는 enum 사용 예
+// void main(){
+//   var nico = Player(name: 'nico', xp: XPLevel.medium, team: Team.red)
+//   ..name = 'las'
+//   ..xp = XPLevel.pro
+//   ..team = Team.blue;
+// }
+
+///4.7강 Abstract Classes(추상화 클래스)
+// abstract class Human {
+//   void walk();
+// }
+// enum Team {red,blue}
+// enum XPLevel{beginner, medium, pro}
+
+// class Player extends Human{
+//   String name;
+//   XPLevel xp;
+//   Team team;
+
+//   Player({required this.name, required this.xp, required this.team});
+
+//   void walk(){
+//     print('im walking');
+//   }
+//   void sayHello(){
+//     print("Hi my name is $name");
+//   }
+// }
+
+// class Coach extends Human{
+//   void walk(){
+//     print('the coach is walk');
+//   }
+// }
+
+// void main(){
+//   var nico = Player(name: 'nico', xp: XPLevel.medium, team: Team.red)
+//   ..name = 'las'
+//   ..xp = XPLevel.pro
+//   ..team = Team.blue;
+// }
+
+///4.8강 inheritance(상속)
+// class Human {
+//   final String name;
+//   Human({required this.name});
+//   sayHello(){
+//     print('Hi my name is $name');
+//   }
+// }
+// enum Team{Red,Blue}
+
+// class Player extends Human{
+//   final Team team;
+//   Player({
+//     required this.team,
+//     required String name
+//   }) : super(name: name);
+
+//   @override
+//   void sayHello(){
+//     super.sayHello();
+//     print('and I play for ${team}');
+//   }
+
+// }
+// void main(){
+//   var player = Player(team: Team.Red, name:'nico');
+// }
+
+///4.9강 Mixins (생성자가 없는 클래스를 의미)
+
+// class Human {
+//   final String name;
+//   Human({required this.name});
+//   sayHello(){
+//     print('Hi my name is $name');
+//   }
+// }
+// class Strong{
+//   final double strengthLevel = 1400.00;
+// }
+// class QuickRunner{
+//   void runQuick(){
+//     print("Runnnnnnnn");
+//   }
+// }
+// class Tall{
+//   final double height = 1.00;
+// }
+// class Horse with Strong, QuickRunner{}
+// class Kid with QuickRunner{}
+
+// enum Team{Red,Blue}
+
+// class Player with Strong, QuickRunner, Tall{
+//   final Team team;
+//   Player({
+//     required this.team,
+//     required String name
+//   });
+
+// }
+// void main(){
+//   var player = Player(team: Team.Red, name:'nico');
+//   player.runQuick();
+// }
